@@ -1,0 +1,1375 @@
+Create S, P, J, SPJ tables as specified below and insert a few rows in each table:- 
+ 
+ SUPPLIER 
+(S#, Sname, Status, City) 
+- S 
+ PARTS 
+(P#, Pname, Color, Weight, City) 
+- P 
+ PROJECTS 
+(J#, Jname, City) 
+- J 
+ SUPPLIER-PARTS-PROJECT 
+(S#, P#, J#, Qty) 
+ 
+- SPJ 
+Sample data for S# column:- ‘S1’, ‘S2’, ‘S3’, etc. 
+Sample data for P# column:- ‘P1’, ‘P2’, ‘P3’, etc. 
+Sample data for J# column:- ‘J1’, ‘J2’, ‘J3’, etc. 
+Sample data for Status column:- 10, 20, 30, etc. 
+ 
+Write the SELECT queries to do the following:- 
+___________________________________________________________________________________
+  
+5.a) Display all the data from the S table.
+command :->    select * from s_supplier;
+Output  :->
++------+-------+--------+--------+
+| Sno  | Sname | Status | City   |
++------+-------+--------+--------+
+| s1   | Smith |     20 | London |
+| S2   | Jones |     10 | Paris  |
+| S3   | Blake |     30 | Paris  |
+| S4   | Blake |     20 | London |
+| S5   | Adams |     30 | Athens |
++------+-------+--------+--------+
+
+here we update s1 to S1 
+command :->  update s_supplier
+    	 ->   set sno ='S1'
+    	 ->     where Sname='Smith';
+Output  :-> here we update s1 to S1 the new updated table
+command :-> select * from s_supplier;
++------+-------+--------+--------+
+| Sno  | Sname | Status | City   |
++------+-------+--------+--------+
+| S1   | Smith |     20 | London |
+| S2   | Jones |     10 | Paris  |
+| S3   | Blake |     30 | Paris  |
+| S4   | Blake |     20 | London |
+| S5   | Adams |     30 | Athens |
++------+-------+--------+--------+
+Command :-> update s_suppler
+	 -> set Sname ='Clark'
+         -> where sno = 'S4';
+
++------+-------+--------+--------+
+| Sno  | Sname | Status | City   |
++------+-------+--------+--------+
+| S1   | Smith |     20 | London |
+| S2   | Jones |     10 | Paris  |
+| S3   | Blake |     30 | Paris  |
+| S4   | Clark |     20 | London |
+| S5   | Adams |     30 | Athens |
++------+-------+--------+--------+
+___________________________________________________________________________________
+ 
+  b) Display all the data from the P table.
+command :-> select * from p_parts;
+Output  :->
++------+-------+-------+--------+--------+
+| Pno  | Pname | Color | Weight | City   |
++------+-------+-------+--------+--------+
+| P1   | Nut   | Red   |     12 | London |
+| P2   | Bolt  | Green |     17 | Paris  |
+| P3   | Screw | Blue  |     17 | Rome   |
+| P4   | Screw | Red   |     14 | London |
+| P5   | Cam   | Blue  |     12 | Paris  |
+| P6   | Cog   | Red   |     19 | London |
++------+-------+-------+--------+--------+ 
+___________________________________________________________________________________
+ 
+  c) Display all the data from the J table. 
+ 
+command :->   select * from J_Projects;
+Output  :->
++------+---------+--------+
+| Jno  | Jname   | City   |
++------+---------+--------+
+| J1   | Sorter  | Parise |
+| J2   | Display | Rome   |
+| J3   | OCR     | Athens |
+| J4   | Console | Athens |
+| J5   | RAID    | London |
++------+---------+--------+
+___________________________________________________________________________________
+
+c) Display all the data from the SPJ table. 
+command :-> select * from spj;
+Output  :->
++------+------+------+------+
+| S#   | P#   | J#   | QTY  |
++------+------+------+------+
+| S1   | P1   | J1   |  200 |
+| S2   | P2   | J2   |  700 |
+| S3   | P3   | J3   |  400 |
+| S4   | P4   | J4   |  500 |
+| S2   | P2   | J3   |  800 |
+| S1   | P3   | J3   |  400 |
+| S2   | P1   | J2   |  100 |
+| S2   | P3   | J2   |  800 |
+| S4   | P1   | J2   |  900 |
+| S4   | P1   | J4   |  500 |
+| S3   | P2   | J1   |  600 |
+| S1   | P2   | J3   |  300 |
+| S3   | P1   | J2   |  500 |
+| S2   | P4   | J1   |  700 |
+| S4   | P4   | J4   |  100 |
+| S4   | P5   | J5   |  500 |
+| S5   | P6   | J5   |  600 |
+| S5   | P5   | J5   |  300 |
+| S3   | P6   | J5   |  500 |
+| S1   | P6   | J5   |  400 |
+| S4   | P6   | J4   |  900 |
++------+------+------+------+ 
+___________________________________________________________________________________
+  
+6. Display only the S# and SNAME fields from the S table. 
+command :-> select sno , sname from s_supplier;
+Output  :->
++------+-------+
+| sno  | sname |
++------+-------+
+| S1   | Smith |
+| S2   | Jones |
+| S3   | Blake |
+| S4   | Blake |
+| S5   | Adams |
++------+-------+
+___________________________________________________________________________________
+  
+7. Display the PNAME and COLOR from the P table for the CITY=”London”.
+
+command :-> select pname ,color from P_Parts
+         -> where city = 'London' ;
+Output :
++-------+-------+
+| pname | color |
++-------+-------+
+| Nut   | Red   |
+| Screw | Red   |
+| Cog   | Red   |
++-------+-------+
+
+
+command :-> select pno,pname from P_Parts
+         ->  where City = 'London';
+Output  :-> 
++------+-------+
+| pno  | pname |
++------+-------+
+| P1   | Nut   |
+| P4   | Screw |
+| P6   | Cog   |
++------+-------+
+___________________________________________________________________________________
+  
+8. Display all the Suppliers from London.
+command :-> select * from s_supplier
+    	 -> where city ='London';
+Output  :-> 
++------+-------+--------+--------+
+| Sno  | Sname | Status | City   |
++------+-------+--------+--------+
+| S1   | Smith |     20 | London |
+| S4   | Blake |     20 | London |
++------+-------+--------+--------+
+___________________________________________________________________________________
+  
+9. Display all the Suppliers from Paris or Athens. 
+command :-> select * from s_supplier
+         -> where City = 'Paris' or City = 'Athens' ;
+Output  :-> 
++------+-------+--------+--------+
+| Sno  | Sname | Status | City   |
++------+-------+--------+--------+
+| S2   | Jones |     10 | Paris  |
+| S3   | Blake |     30 | Paris  |
+| S5   | Adams |     30 | Athens |
++------+-------+--------+--------+
+___________________________________________________________________________________
+  
+10. Display all the Projects in Athens. 
+command :->  select * from J_Projects
+    	 -> where City = 'Athens';
+Output  :-> 
++------+---------+--------+
+| Jno  | Jname   | City   |
++------+---------+--------+
+| J3   | OCR     | Athens |
+| J4   | Console | Athens |
++------+---------+--------+
+___________________________________________________________________________________
+  
+11. Display all the Partnames with the weight between 12 and 14 (inclusive of both).
+command :-> select * from P_Parts
+         -> where weight between 12 and 14 ;
+Output  :->  
++------+-------+-------+--------+--------+
+| Pno  | Pname | Color | Weight | City   |
++------+-------+-------+--------+--------+
+| P1   | Nut   | Red   |     12 | London |
+| P4   | Screw | Red   |     14 | London |
+| P5   | Cam   | Blue  |     12 | Paris  |
++------+-------+-------+--------+--------+
+ 		OR
+command :-> select * from P_Parts
+         -> where weight>=12 and weight<=14;
++------+-------+-------+--------+--------+
+| Pno  | Pname | Color | Weight | City   |
++------+-------+-------+--------+--------+
+| P1   | Nut   | Red   |     12 | London |
+| P4   | Screw | Red   |     14 | London |
+| P5   | Cam   | Blue  |     12 | Paris  |
++------+-------+-------+--------+--------+
+___________________________________________________________________________________
+  
+12. Display all the Suppliers with a Status greater than or equal to 20.
+command :-> select * from s_supplier
+    	 -> where status >= 20 ;
+Output  :->  
++------+-------+--------+--------+
+| Sno  | Sname | Status | City   |
++------+-------+--------+--------+
+| S1   | Smith |     20 | London |
+| S3   | Blake |     30 | Paris  |
+| S4   | Blake |     20 | London |
+| S5   | Adams |     30 | Athens |
++------+-------+--------+--------+
+___________________________________________________________________________________
+  
+13. Display all the Suppliers except the Suppliers from London. 
+command :-> select * from s_supplier
+         -> where City != 'London' ;
+	 
+Output  :-> 
++------+-------+--------+--------+
+| Sno  | Sname | Status | City   |
++------+-------+--------+--------+
+| S2   | Jones |     10 | Paris  |
+| S3   | Blake |     30 | Paris  |
+| S5   | Adams |     30 | Athens |
++------+-------+--------+--------+
+___________________________________________________________________________________
+  
+14. Display only the Cities from where the Suppliers come from.
+command :-> select city  from s_supplier;
+Output  :->  
++--------+
+| city   |
++--------+
+| London |
+| Paris  |
+| Paris  |
+| London |
+| Athens |
++--------+
+___________________________________________________________________________________
+  
+15. Assuming that the Part Weight is in GRAMS, display the same in 
+MILLIGRAMS and KILOGRAMS. 
+command :->  select weight , weight*0.001 "Miligram" ,weight*1000 "KG" from P_Parts;
+Output  :-> 
++--------+----------+-------+
+| weight | Miligram | KG    |
++--------+----------+-------+
+|     12 |    0.012 | 12000 |
+|     17 |    0.017 | 17000 |
+|     17 |    0.017 | 17000 |
+|     14 |    0.014 | 14000 |
+|     12 |    0.012 | 12000 |
+|     19 |    0.019 | 19000 |
++--------+----------+-------+
+___________________________________________________________________________________
+ 
+
+1. Display the Supplier table in the descending order of CITY. 
+command :->
+Output  :-> 
++--------+
+| city   |
++--------+
+| Paris  |
+| Paris  |
+| London |
+| London |
+| Athens |
++--------+
+___________________________________________________________________________________
+  
+2. Display the Part Table in the ascending order of CITY and within the city in 
+the ascending order of Part names. 
+command :->  select city  from s_supplier
+         ->  order by city desc;
+Output  :-> 
+select *  from P_Parts
+    -> order by city desc;
++------+-------+-------+--------+--------+
+| Pno  | Pname | Color | Weight | City   |
++------+-------+-------+--------+--------+
+| P3   | Screw | Blue  |     17 | Rome   |
+| P2   | Bolt  | Green |     17 | Paris  |
+| P5   | Cam   | Blue  |     12 | Paris  |
+| P1   | Nut   | Red   |     12 | London |
+| P4   | Screw | Red   |     14 | London |
+| P6   | Cog   | Red   |     19 | London |
++------+-------+-------+--------+--------+
+command :-> select *  from P_Parts
+    	 -> order by pname asc;
++------+-------+-------+--------+--------+
+| Pno  | Pname | Color | Weight | City   |
++------+-------+-------+--------+--------+
+| P2   | Bolt  | Green |     17 | Paris  |
+| P5   | Cam   | Blue  |     12 | Paris  |
+| P6   | Cog   | Red   |     19 | London |
+| P1   | Nut   | Red   |     12 | London |
+| P3   | Screw | Blue  |     17 | Rome   |
+| P4   | Screw | Red   |     14 | London |
++------+-------+-------+--------+--------+
+___________________________________________________________________________________
+  
+3. Display all the Suppliers with a status between 10 and 20.
+command :->select * from s_supplier
+    	 -> where status between 10 and 20 ;
+
+Output  :->
++------+-------+--------+--------+
+| Sno  | Sname | Status | City   |
++------+-------+--------+--------+
+| S1   | Smith |     20 | London |
+| S2   | Jones |     10 | Paris  |
+| S4   | Blake |     20 | London |
++------+-------+--------+--------+  
+___________________________________________________________________________________
+  
+4. Display all the Parts and their Weight, which are not in the range of 10 and 15. 
+command :->  select pname ,weight from P_Parts
+    	 -> where weight not between 10 and 15;
+Output  :-> 
++-------+--------+
+| pname | weight |
++-------+--------+
+| Bolt  |     17 |
+| Screw |     17 |
+| Cog   |     19 |
++-------+--------+
+___________________________________________________________________________________
+  
+5. Display all the Part names starting with the letter ‘S’. 
+command :-> select pname ,weight from P_Parts
+    	 -> where pname like 'S%';
+Output  :-> 
++-------+--------+
+| pname | weight |
++-------+--------+
+| Screw |     17 |
+| Screw |     14 |
++-------+--------+
+___________________________________________________________________________________
+  
+6. Display all the Suppliers, belonging to cities starting with the letter ‘L’. 
+command :-> select * from s_Supplier
+         -> where city like 'L%';
+Output  :-> 
++------+-------+--------+--------+
+| Sno  | Sname | Status | City   |
++------+-------+--------+--------+
+| S1   | Smith |     20 | London |
+| S4   | Blake |     20 | London |
++------+-------+--------+--------+
+___________________________________________________________________________________
+  
+7. Display all the Projects, with the third letter in JNAME as ‘n’. 
+command :-> select * from J_Projects
+    	 -> where Jname like '__n%';
+Output  :-> 
++------+---------+--------+
+| Jno  | Jname   | City   |
++------+---------+--------+
+| J4   | Console | Athens |
++------+---------+--------+
+___________________________________________________________________________________
+
+1. Display all the Supplier names with the initial letter capital. 
+command :-> select concat( upper(substr(sname,1,1)),lower(substr(sname,2))) from s_supplier;
+Output :
++----------------------------------------------------------+
+| concat( upper(substr(sname,1,1)),lower(substr(sname,2))) |
++----------------------------------------------------------+
+| Smith                                                    |
+| Jones                                                    |
+| Blake                                                    |
+| Blake                                                    |
+| Adams                                                    |
++----------------------------------------------------------+
+
+Command :-> select concat( upper(substr(sname,1,1)),lower(substr(sname,2))) "Sname" from s_supplier;
+Output : 
++-------+
+| Sname |
++-------+
+| Smith |
+| Jones |
+| Blake |
+| Blake |
+| Adams |
++-------+
+___________________________________________________________________________________ 
+
+2. Display all the Supplier names in upper case. 
+command :-> select upper(Sname) from S_Supplier;
+
+Output  :->
++--------------+
+| upper(Sname) |
++--------------+
+| SMITH        |
+| JONES        |
+| BLAKE        |
+| BLAKE        |
+| ADAMS        |
++--------------+
+___________________________________________________________________________________ 
+
+3. Display all the Supplier names in lower case. 
+
+command :-> select lower(Sname) from s_supplier;
+
+Output  :-> 
++--------------+
+| lower(Sname) |
++--------------+
+| smith        |
+| jones        |
+| blake        |
+| clark        |
+| adams        |
++--------------+
+___________________________________________________________________________________ 
+ 
+4. Display all the Supplier names padded to 25 characters, with spaces on the left.
+command :->  select lower(Sname) from S_Supplier;
+
+Output  :->
++--------------+
+| lower(Sname) |
++--------------+
+| smith        |
+| jones        |
+| blake        |
+| blake        |
+| adams        |
++--------------+
+___________________________________________________________________________________ 
+
+5. Display all the Supplier names (with ‘la’ replaced by ‘ro’). 
+   HINT: REPLACE. 
+command :->  select replace(sname ,'la','ro') from S_supplier;
+
+Output  :->
++---------------------------+
+| replace(sname ,'la','ro') |
++---------------------------+
+| Smith                     |
+| Jones                     |
+| Broke                     |
+| Crork                     |
+| Adams                     |
++---------------------------+
+
+___________________________________________________________________________________
+ 
+6. Implement the above command such that ‘l’ is replaced with ‘r’ and ‘a’ is 
+   replaced with ‘o’. 
+command :-> select replace(replace(sname,'a','o'),'l','r') from S_supplier;
+
+Output  :->
++-----------------------------------------+
+| replace(replace(sname,'a','o'),'l','r') |
++-----------------------------------------+
+| Smith                                   |
+| Jones                                   |
+| Broke                                   |
+| Crork                                   |
+| Adoms                                   |
++-----------------------------------------+
+___________________________________________________________________________________ 
+
+7. Display the Supplier names and the lengths of the names. 
+command :-> select sname ,length(sname) from s_supplier;
+
+Output  :->
++-------+---------------+
+| sname | length(sname) |
++-------+---------------+
+| Smith |             5 |
+| Jones |             5 |
+| Blake |             5 |
+| Clark |             5 |
+| Adams |             5 |
++-------+---------------+
+___________________________________________________________________________________ 
+
+8. Use the soundex function to search for a supplier by the name of ‘BLOKE’. 
+command :-> select * from s_Supplier
+    	 -> where soundex(sname) = soundex('Bloke');
+Output : 
++------+-------+--------+-------+
+| Sno  | Sname | Status | City  |
++------+-------+--------+-------+
+| S3   | Blake |     30 | Paris |
++------+-------+--------+-------+
+___________________________________________________________________________________
+ 
+9. Display the Supplier name and the status (as Ten, Twenty, Thirty, etc.). 
+command :->  select Sname ,Status,
+         ->  case
+         ->  when Status = 10 then 'One'
+         ->  when Status = 20 then 'two'
+         ->  when Status = 30 then 'three'
+         ->  end "Supplier Status"
+         ->  from S_Supplier
+         ->  order by Status;
++-------+--------+-----------------+
+| Sname | Status | Supplier Status |
++-------+--------+-----------------+
+| Jones |     10 | One             |
+| Smith |     20 | two             |
+| Clark |     20 | two             |
+| Blake |     30 | three           |
+| Adams |     30 | three           |
++-------+--------+-----------------+                                                                                       -
+__________________________________________________________________________________
+
+10. Display the current day (e.g. Thursday).  
+command :-> select dayname(sysdate()) from dual;
+
+Output  :->
++--------------------+
+| dayname(sysdate()) |
++--------------------+
+| Tuesday            |
++--------------------+
+
+-> select dayname(sysdate()) as "dayname" from dual;
++---------+
+| dayname |
++---------+
+| Tuesday |
++---------+
+______________________________________________________________________________________
+
+1. Display the minimum Status in the Supplier table.
+ 
+command :-> select min(Status) from s_Supplier;
+
+Output  :->
++-------------+
+| min(Status) |
++-------------+
+|          10 |
++-------------+
+_______________________________________________________________________________________
+ 
+2. Display the maximum Weight in the Parts table.
+
+command :->  select max(weight) from P_Parts ;
+
+Output  :-> 
++-------------+
+| max(weight) |
++-------------+
+|          19 |
++-------------+
+_______________________________________________________________________________________ 
+
+3. Display the average Weight of the Parts. 
+
+command :->  select avg(weight) from P_parts;
+
+Output  :->
++--------------------+
+| avg(weight)        |
++--------------------+
+| 15.166666666666666 |
++--------------------+
+_______________________________________________________________________________________
+ 
+4. Display the total Quantity sold for part ‘P1’. 
+
+command :-> select sum(Qty) from spj
+   	 -> where `p#` = 'P1';
+
+Output  :->
++----------+
+| sum(Qty) |
++----------+
+|     2200 |
++----------+
+_______________________________________________________________________________________
+ 
+5. Display the total Quantity sold for each part.
+command :->select `P#` ,sum(qty) from spj
+    	 -> group by `p#` ;
+Output  :-> 
++------+----------+
+| P#   | sum(qty) |
++------+----------+
+| P1   |     2200 |
+| P2   |     2400 |
+| P3   |     1600 |
+| P4   |     1300 |
+| P5   |      800 |
+| P6   |     2400 |
++------+----------+
+_______________________________________________________________________________________
+ 
+6. Display the average Quantity sold for each part. 
+command :-> select `P#` ,avg(qty) from spj
+   	 -> group by `p#` ;
+
+Output  :->
++------+----------+
+| P#   | avg(qty) |
++------+----------+
+| P1   | 440.0000 |
+| P2   | 600.0000 |
+| P3   | 533.3333 |
+| P4   | 433.3333 |
+| P5   | 400.0000 |
+| P6   | 600.0000 |
++------+----------+
+_______________________________________________________________________________________
+ 
+7. Display the maximum Quantity sold for each part, provided the maximum Quantity 
+   is greater than 800. 
+command :-> select QTY,max(QTY) from spj
+    	 -> where qty >800
+    	 -> group by qty;
+
+Output  :->
++------+----------+
+| QTY  | max(QTY) |
++------+----------+
+|  900 |      900 |
++------+----------+
+command -> select QTY,max(QTY) from spj
+    	-> where qty >300
+    	-> group by qty;
++------+----------+
+| QTY  | max(QTY) |
++------+----------+
+|  700 |      700 |
+|  400 |      400 |
+|  500 |      500 |
+|  800 |      800 |
+|  900 |      900 |
+|  600 |      600 |
++------+----------+
+_______________________________________________________________________________________
+ 
+8. Display the Status and the count of Suppliers with that Status.
+command :-> select s_supplier.sno ,status , count(*) from spj ,s_supplier
+   	 -> where spj.`S#` = s_supplier.sno
+   	 -> group by sno
+	 -> order by sno;
+Output  :-> 
++------+--------+----------+
+| sno  | status | count(*) |
++------+--------+----------+
+| S1   |     20 |        4 |
+| S2   |     10 |        5 |
+| S3   |     30 |        4 |
+| S4   |     20 |        6 |
+| S5   |     30 |        2 |
++------+--------+----------+
+---------------------------------------------------------------------------------
+command :-> select s_supplier.sno , status , count(*) "Count" from spj left outer join s_supplier
+    	 -> on( s_Supplier.sno=spj.`S#`)
+    	 -> group by sno
+    	 -> order by sno;
+output : 
++------+--------+-------+
+| sno  | status | Count |
++------+--------+-------+
+| S1   |     20 |     4 |
+| S2   |     10 |     5 |
+| S3   |     30 |     4 |
+| S4   |     20 |     6 |
+| S5   |     30 |     2 |
++------+--------+-------+
+__________________________________________________________________________________
+ 
+9. Display the count of Projects going on in different cities. 
+command :-> select  count(distinct city) from J_Projects;
+
+Output  :->
++----------------------+
+| count(distinct city) |
++----------------------+
+|                    4 |
++----------------------+
+__________________________________________________________________________________
+ 
+10. What is the difference between COUNT(Status) and COUNT(*) ? 
+command :->  select count(Status)-count(*) from s_Supplier;
+
+Output  :->
++------------------------+
+| count(Status)-count(*) |
++------------------------+
+|                      0 |
++------------------------+
+__________________________________________________________________________________
+ 
+11. Display the Status and the Count of Suppliers with that Status in the following  
+    format  as shown below:- 
+ 
+Status  Count 
+Ten      1 
+Twenty   2 
+Thirty   3
+
+command :->select case
+    -> when status = 10 then 'Ten'
+    -> when status = 20 then 'Twenty'
+    -> when status = 30 then 'Thirty'
+    -> end "status",count(status)
+    -> from s_supplier
+    -> group by status;
+ 
+Output : 
++--------+---------------+
+| status | count(status) |
++--------+---------------+
+| Twenty |             2 |
+| Ten    |             1 |
+| Thirty |             2 |
++--------+---------------+
+____________________________________________________________________________________
+
+1. Display the Supplier name and the Quantity sold.
+command :-> select sname ,sum(qty) "QTY" from spj , s_Supplier
+    	 -> where s_supplier.sno = spj.`S#`
+    	 -> group by sname
+    	 -> order by sname;
+Output :
++-------+------+
+| sname | QTY  |
++-------+------+
+| Adams |  900 |
+| Blake | 2000 |
+| Clark | 3400 |
+| Jones | 3100 |
+| Smith | 1300 |
++-------+------+
+
+
+---------------------------------------------------------------------
+command :-> > select sno,sname ,qty from spj ,s_supplier
+    -> where s_supplier.sno = spj.`S#`
+    -> order by sname;
++------+-------+------+
+| sno  | sname | qty  |
++------+-------+------+
+| S5   | Adams |  600 |
+| S5   | Adams |  300 |
+| S3   | Blake |  400 |
+| S3   | Blake |  600 |
+| S3   | Blake |  500 |
+| S3   | Blake |  500 |
+| S4   | Clark |  500 |
+| S4   | Clark |  900 |
+| S4   | Clark |  500 |
+| S4   | Clark |  100 |
+| S4   | Clark |  500 |
+| S4   | Clark |  900 |
+| S2   | Jones |  700 |
+| S2   | Jones |  800 |
+| S2   | Jones |  100 |
+| S2   | Jones |  800 |
+| S2   | Jones |  700 |
+| S1   | Smith |  200 |
+| S1   | Smith |  400 |
+| S1   | Smith |  300 |
+| S1   | Smith |  400 |
++------+-------+------+
+---------------------------------------------------------------------------------
+command :->  select Sname,qty from s_supplier,spj
+    	 -> where s_Supplier.Sno = spj.`S#`
+    	 -> group by sname , qty
+	 -> order by sname ;
+Output  :->
+
++-------+------+
+| Sname | qty  |
++-------+------+
+| Smith |  200 |
+| Jones |  700 |
+| Blake |  400 |
+| Clark |  500 |
+| Jones |  800 |
+| Smith |  400 |
+| Jones |  100 |
+| Clark |  900 |
+| Blake |  600 |
+| Smith |  300 |
+| Blake |  500 |
+| Clark |  100 |
+| Adams |  600 |
+| Adams |  300 |
++-------+------+
+
+
+----------------------------------------------------------
+it is for practice .
+
+command:-> select Sno,`S#` from s_supplier,spj
+        -> where s_Supplier.Sno = spj.`S#`
+        -> group by sname , qty;
++------+------+
+| Sno  | S#   |
++------+------+
+| S1   | S1   |
+| S2   | S2   |
+| S3   | S3   |
+| S4   | S4   |
+| S2   | S2   |
+| S1   | S1   |
+| S2   | S2   |
+| S4   | S4   |
+| S3   | S3   |
+| S1   | S1   |
+| S3   | S3   |
+| S4   | S4   |
+| S5   | S5   |
+| S5   | S5   |
++------+------+
+____________________________________________________________________________________
+ 
+2. Display the Part name and Quantity sold. 
+command :-> select Pname,qty , sum(qty) from P_Parts ,spj
+    	 -> where P_Parts.Pno = spj.`P#`
+    	 -> group by pname
+    	 -> Order by pname;
+Output : 
++-------+------+----------+
+| Pname | qty  | sum(qty) |
++-------+------+----------+
+| Bolt  |  700 |     2400 |
+| Cam   |  500 |      800 |
+| Cog   |  600 |     2400 |
+| Nut   |  200 |     2200 |
+| Screw |  400 |     2900 |
++-------+------+----------+
+--------------------------------------------------------------------------------------
+command :-> select Pname,qty from P_Parts ,spj
+    	 ->  where P_Parts.Pno = spj.`P#`
+     	 -> Order by Pname;
+Output :
++-------+------+
+| Pname | qty  |
++-------+------+
+| Bolt  |  700 |
+| Bolt  |  800 |
+| Bolt  |  600 |
+| Bolt  |  300 |
+| Cam   |  500 |
+| Cam   |  300 |
+| Cog   |  600 |
+| Cog   |  500 |
+| Cog   |  400 |
+| Cog   |  900 |
+| Nut   |  200 |
+| Nut   |  100 |
+| Nut   |  900 |
+| Nut   |  500 |
+| Nut   |  500 |
+| Screw |  400 |
+| Screw |  500 |
+| Screw |  400 |
+| Screw |  800 |
+| Screw |  700 |
+| Screw |  100 |
++-------+------+
+------------------------------------------------------------------------------------
+command :->  select Pname,qty from P_Parts ,spj
+    	 -> where P_Parts.Pno = spj.`P#`
+    	 -> group by Pname , qty;
+
+Output  :->
++-------+------+
+| Pname | qty  |
++-------+------+
+| Nut   |  200 |
+| Bolt  |  700 |
+| Screw |  400 |
+| Screw |  500 |
+| Bolt  |  800 |
+| Nut   |  100 |
+| Screw |  800 |
+| Nut   |  900 |
+| Nut   |  500 |
+| Bolt  |  600 |
+| Bolt  |  300 |
+| Screw |  700 |
+| Screw |  100 |
+| Cam   |  500 |
+| Cog   |  600 |
+| Cam   |  300 |
+| Cog   |  500 |
+| Cog   |  400 |
+| Cog   |  900 |
++-------+------+
+command:-> select pno , pname ,qty from spj , P_Parts
+        -> where P_parts.pno = spj.`P#`
+        -> order by pname;
+Output :
++------+-------+------+
+| pno  | pname | qty  |
++------+-------+------+
+| P2   | Bolt  |  700 |
+| P2   | Bolt  |  800 |
+| P2   | Bolt  |  600 |
+| P2   | Bolt  |  300 |
+| P5   | Cam   |  500 |
+| P5   | Cam   |  300 |
+| P6   | Cog   |  600 |
+| P6   | Cog   |  500 |
+| P6   | Cog   |  400 |
+| P6   | Cog   |  900 |
+| P1   | Nut   |  200 |
+| P1   | Nut   |  100 |
+| P1   | Nut   |  900 |
+| P1   | Nut   |  500 |
+| P1   | Nut   |  500 |
+| P3   | Screw |  400 |
+| P4   | Screw |  500 |
+| P3   | Screw |  400 |
+| P3   | Screw |  800 |
+| P4   | Screw |  700 |
+| P4   | Screw |  100 |
++------+-------+------+
+____________________________________________________________________________________
+ 
+3. Display the Project name and Quantity sold.
+command :-> select Jname ,sum(qty) "QTY" from spj , J_Projects
+    -> where J_Projects.Jno = spj.`J#`
+    -> group by jname
+    -> Order by jname;
+Output :
++---------+------+
+| Jname   | QTY  |
++---------+------+
+| Console | 2000 |
+| Display | 3000 |
+| OCR     | 1900 |
+| RAID    | 2300 |
+| Sorter  | 1500 |
++---------+------+
+
+------------------------------------------------------------
+command :-> select Jno,Jname , qty from spj ,J_Projects
+    	 -> where J_projects.jno = spj.`J#`
+    	 -> order by jname;
+Output :
++------+---------+------+
+| Jno  | Jname   | qty  |
++------+---------+------+
+| J4   | Console |  500 |
+| J4   | Console |  500 |
+| J4   | Console |  100 |
+| J4   | Console |  900 |
+| J2   | Display |  700 |
+| J2   | Display |  100 |
+| J2   | Display |  800 |
+| J2   | Display |  900 |
+| J2   | Display |  500 |
+| J3   | OCR     |  400 |
+| J3   | OCR     |  800 |
+| J3   | OCR     |  400 |
+| J3   | OCR     |  300 |
+| J5   | RAID    |  500 |
+| J5   | RAID    |  600 |
+| J5   | RAID    |  300 |
+| J5   | RAID    |  500 |
+| J5   | RAID    |  400 |
+| J1   | Sorter  |  200 |
+| J1   | Sorter  |  600 |
+| J1   | Sorter  |  700 |
++------+---------+------+
+----------------------------------------------------- 
+command :-> select Jname,qty from J_Projects ,spj
+   	 -> where J_Projects.Jno = spj.`J#`
+    	 
+
+Output  :->
++---------+------+
+| Jname   | qty  |
++---------+------+
+| Sorter  |  200 |
+| Display |  700 |
+| OCR     |  400 |
+| Console |  500 |
+| OCR     |  800 |
+| Display |  100 |
+| Display |  800 |
+| Display |  900 |
+| Sorter  |  600 |
+| OCR     |  300 |
+| Display |  500 |
+| Sorter  |  700 |
+| Console |  100 |
+| RAID    |  500 |
+| RAID    |  600 |
+| RAID    |  300 |
+| RAID    |  400 |
+| Console |  900 |
++---------+------+
+____________________________________________________________________________________
+ 
+4. Display the Supplier name, Part name, Project name and Quantity sold. 
+command :-> select s_supplier.sname ,P_parts.pname ,j_Projects.jname , spj.qty from s_supplier , p_parts 		,j_projects ,spj
+    	 -> where s_supplier.sno = spj.`S#`
+    	 -> and P_Parts.pno = spj.`P#`
+    	 -> and j_projects.jno = spj.`J#`;
+
+Output  :->
++-------+-------+---------+------+
+| sname | pname | jname   | qty  |
++-------+-------+---------+------+
+| Smith | Nut   | Sorter  |  200 |
+| Jones | Nut   | Display |  100 |
+| Clark | Nut   | Display |  900 |
+| Blake | Nut   | Display |  500 |
+| Clark | Nut   | Console |  500 |
+| Blake | Bolt  | Sorter  |  600 |
+| Jones | Bolt  | Display |  700 |
+| Jones | Bolt  | OCR     |  800 |
+| Smith | Bolt  | OCR     |  300 |
+| Jones | Screw | Display |  800 |
+| Blake | Screw | OCR     |  400 |
+| Smith | Screw | OCR     |  400 |
+| Jones | Screw | Sorter  |  700 |
+| Clark | Screw | Console |  500 |
+| Clark | Screw | Console |  100 |
+| Clark | Cam   | RAID    |  500 |
+| Adams | Cam   | RAID    |  300 |
+| Clark | Cog   | Console |  900 |
+| Adams | Cog   | RAID    |  600 |
+| Blake | Cog   | RAID    |  500 |
+| Smith | Cog   | RAID    |  400 |
++-------+-------+---------+------+
+
+
+
+____________________________________________________________________________________
+ 
+5. Display the Supplier name, Supplying Parts to a Project in the same City. 
+command :-> select  sname from s_supplier, p_Parts, j_Projects 
+	    where s_Supplier.city = p_Parts.city and P_Parts.city = j_Projects.city;
+
+
+Output  :->
++-------+
+| sname |
++-------+
+| Smith |
+| Clark |
+| Smith |
+| Clark |
+| Smith |
+| Clark |
++-------+
+____________________________________________________________________________________
+ 
+6. Display the Part name that is ‘Red’ is color, and the Quantity sold. 
+
+command :->  select pname ,sum(qty) from spj ,P_Parts
+         -> where p_parts.pno = spj.`P#` and color = 'Red'
+         -> group by pno
+         -> order by pno;
+Output :
++-------+----------+
+| pname | sum(qty) |
++-------+----------+
+| Nut   |     2200 |
+| Screw |     1300 |
+| Cog   |     2400 |
++-------+----------+
+__________________________________________________________________________________________
+
+command :-> select pno,pname,color ,qty from P_Parts ,spj
+    	 -> where P_Parts.pno = spj.`P#`
+    	 -> having color = 'red'
+    	 -> order by pno;
+
++------+-------+-------+------+
+| pno  | pname | color | qty  |
++------+-------+-------+------+
+| P1   | Nut   | Red   |  200 |
+| P1   | Nut   | Red   |  100 |
+| P1   | Nut   | Red   |  900 |
+| P1   | Nut   | Red   |  500 |
+| P1   | Nut   | Red   |  500 |
+| P4   | Screw | Red   |  500 |
+| P4   | Screw | Red   |  700 |
+| P4   | Screw | Red   |  100 |
+| P6   | Cog   | Red   |  600 |
+| P6   | Cog   | Red   |  500 |
+| P6   | Cog   | Red   |  400 |
+| P6   | Cog   | Red   |  900 |
++------+-------+-------+------+
+--------------------------------------------------------------------------
+command :-> select Color,Pname,qty from P_Parts ,spj
+    	 -> where P_Parts.Pno = spj.`P#`
+    	 -> group by Pname , qty
+    	 -> having Color = 'Red';
+
+Output  :->
++-------+-------+------+
+| Color | Pname | qty  |
++-------+-------+------+
+| Red   | Nut   |  200 |
+| Red   | Screw |  500 |
+| Red   | Nut   |  100 |
+| Red   | Nut   |  900 |
+| Red   | Nut   |  500 |
+| Red   | Screw |  700 |
+| Red   | Screw |  100 |
+| Red   | Cog   |  600 |
+| Red   | Cog   |  500 |
+| Red   | Cog   |  400 |
+| Red   | Cog   |  900 |
++-------+-------+------+
+____________________________________________________________________________________
+ 
+7. Display all the Quantity sold by Suppliers with the Status = 20. 
+
+command :-> select sname ,sum(qty) "qty" from spj ,S_supplier
+         -> where s_Supplier.sno = spj.`S#` and status = 20
+         -> group by sno
+         -> order by sno;
+Output :
++-------+------+
+| sname | qty  |
++-------+------+
+| Smith | 1300 |
+| Clark | 3400 |
++-------+------+
+--------------------------------------------------------------------------------------
+
+It is recommended to use group function in having clause
+
+command :-> select sname ,status,sum(qty) "QTY" from spj , s_Supplier
+    	 -> where s_supplier.sno = spj.`S#`
+    	 -> group by sname
+    	 -> having status = 20
+    	 -> Order by sname ;
+Output :
++-------+--------+------+
+| sname | status | QTY  |
++-------+--------+------+
+| Clark |     20 | 3400 |
+| Smith |     20 | 1300 |
++-------+--------+------+
+
+-------------------------------------------------------------------------
+command :-> select sno, sname,status,qty from s_Supplier ,spj
+    	 -> where s_supplier.sno = spj.`S#`
+    	 -> having status=20
+	 -> Order by sname;
+
+Output  :->
++------+-------+--------+------+
+| sno  | sname | status | qty  |
++------+-------+--------+------+
+| S4   | Clark |     20 |  500 |
+| S4   | Clark |     20 |  900 |
+| S4   | Clark |     20 |  500 |
+| S4   | Clark |     20 |  100 |
+| S4   | Clark |     20 |  500 |
+| S4   | Clark |     20 |  900 |
+| S1   | Smith |     20 |  200 |
+| S1   | Smith |     20 |  400 |
+| S1   | Smith |     20 |  300 |
+| S1   | Smith |     20 |  400 |
++------+-------+--------+------+
+
+command :-> select sno, sname,status,qty from s_Supplier ,spj
+    	 -> where s_supplier.sno = spj.`S#`
+    	 -> having status=20
+    	 -> order by sno;
++------+-------+--------+------+
+| sno  | sname | status | qty  |
++------+-------+--------+------+
+| S1   | Smith |     20 |  200 |
+| S1   | Smith |     20 |  400 |
+| S1   | Smith |     20 |  300 |
+| S1   | Smith |     20 |  400 |
+| S4   | Clark |     20 |  500 |
+| S4   | Clark |     20 |  900 |
+| S4   | Clark |     20 |  500 |
+| S4   | Clark |     20 |  100 |
+| S4   | Clark |     20 |  500 |
+| S4   | Clark |     20 |  900 |
++------+-------+--------+------+
+
+____________________________________________________________________________________
+ 
+8. Display all the Parts and Quantity with a Weight > 14. 
+command :-> select Pname, weight ,sum(qty) "QTY" from P_Parts ,spj
+    	 ->  where P_Parts.Pno = spj.`P#`
+    	 -> group by pname
+    	 -> having weight > 14
+   	 -> Order by pname ;
+Output : 
++-------+--------+------+
+| Pname | weight | QTY  |
++-------+--------+------+
+| Bolt  |     17 | 2400 |
+| Cog   |     19 | 2400 |
+| Screw |     17 | 2900 |
++-------+--------+------+
+
+
+--------------------------------------------------------------
+command :->  select pname,weight ,qty from P_Parts ,spj
+         ->  where P_Parts.pno = spj.`P#`
+         ->  having weight>14
+	 ->  Order by pname;
+Output :
++-------+--------+------+
+| pname | weight | qty  |
++-------+--------+------+
+| Bolt  |     17 |  700 |
+| Bolt  |     17 |  800 |
+| Bolt  |     17 |  600 |
+| Bolt  |     17 |  300 |
+| Cog   |     19 |  600 |
+| Cog   |     19 |  500 |
+| Cog   |     19 |  400 |
+| Cog   |     19 |  900 |
+| Screw |     17 |  400 |
+| Screw |     17 |  400 |
+| Screw |     17 |  800 |
++-------+--------+------+
+-------------------------------------------------------------------
+command :->  select pname,weight ,qty from P_Parts ,spj
+         ->  where P_Parts.pno = spj.`P#`
+         ->  having weight>14 ;
++------+-------+--------+------+
+| pno  | pname | weight | qty  |
++------+-------+--------+------+
+| P2   | Bolt  |     17 |  700 |
+| P3   | Screw |     17 |  400 |
+| P2   | Bolt  |     17 |  800 |
+| P3   | Screw |     17 |  400 |
+| P3   | Screw |     17 |  800 |
+| P2   | Bolt  |     17 |  600 |
+| P2   | Bolt  |     17 |  300 |
+| P6   | Cog   |     19 |  600 |
+| P6   | Cog   |     19 |  500 |
+| P6   | Cog   |     19 |  400 |
+| P6   | Cog   |     19 |  900 |
++------+-------+--------+------+
+____________________________________________________________________________________
+ 
+9. Display all the Project names and City, which has bought more than 500 Parts. 
+
+command :-> select jno , jname ,city ,sum(qty) "QTY" from spj , J_Projects
+    	 -> where j_Projects.jno = spj.`J#`
+    	 -> group by jno
+    	 -> having sum(qty) > 500
+    	 -> order by jno;
+Output : 
++------+---------+--------+------+
+| jno  | jname   | city   | QTY  |
++------+---------+--------+------+
+| J1   | Sorter  | Parise | 1500 |
+| J2   | Display | Rome   | 3000 |
+| J3   | OCR     | Athens | 1900 |
+| J4   | Console | Athens | 2000 |
+| J5   | RAID    | London | 2300 |
++------+---------+--------+------+
+-------------------------------------------------------------------------------------
+command :-> select jno , jname ,city ,sum(qty) "QTY" from spj , J_Projects
+    	 -> where j_Projects.jno = spj.`J#`
+    	 -> group by jname
+    	 -> having sum(qty) > 500
+    	 -> order by jname ; 
+Output : 
++------+---------+--------+------+
+| jno  | jname   | city   | QTY  |
++------+---------+--------+------+
+| J4   | Console | Athens | 2000 |
+| J2   | Display | Rome   | 3000 |
+| J3   | OCR     | Athens | 1900 |
+| J5   | RAID    | London | 2300 |
+| J1   | Sorter  | Parise | 1500 |
++------+---------+--------+------+
+
+---------------------------------------------------------------------------------------
+command :-> select jno,jname,city,qty from J_projects,spj
+    	 -> where J_Projects.jno = spj.`J#`
+    	 -> having qty>500
+    	 -> order by jno;
++------+---------+--------+------+
+| jno  | jname   | city   | qty  |
++------+---------+--------+------+
+| J1   | Sorter  | Parise |  600 |
+| J1   | Sorter  | Parise |  700 |
+| J2   | Display | Rome   |  700 |
+| J2   | Display | Rome   |  800 |
+| J2   | Display | Rome   |  900 |
+| J3   | OCR     | Athens |  800 |
+| J4   | Console | Athens |  900 |
+| J5   | RAID    | London |  600 |
++------+---------+--------+------+
+____________________________________________________________________________________ 
+
+10. Display all the Part names and Quantity sold that have a Weight less than 15. 
+
+command :-> select pno , pname ,weight, sum(qty) "qty" from spj ,p_parts
+         -> where P_Parts.pno = spj.`P#` and weight < 15
+         -> group by pno
+         -> order by pno;
+Output :
++------+-------+--------+------+
+| pno  | pname | weight | qty  |
++------+-------+--------+------+
+| P1   | Nut   |     12 | 2200 |
+| P4   | Screw |     14 | 1300 |
+| P5   | Cam   |     12 |  800 |
++------+-------+--------+------+
+
+-------------------------------------------------------------------
+command :-> select pno,pname,weight ,qty from P_Parts ,spj
+    	 -> where P_Parts.pno = spj.`P#`
+    	 -> having weight<15 
+	 -> order by pno ;
+Output  :->
++------+-------+--------+------+
+| pno  | pname | weight | qty  |
++------+-------+--------+------+
+| P1   | Nut   |     12 |  200 |
+| P1   | Nut   |     12 |  100 |
+| P1   | Nut   |     12 |  900 |
+| P1   | Nut   |     12 |  500 |
+| P1   | Nut   |     12 |  500 |
+| P4   | Screw |     14 |  500 |
+| P4   | Screw |     14 |  700 |
+| P4   | Screw |     14 |  100 |
+| P5   | Cam   |     12 |  500 |
+| P5   | Cam   |     12 |  300 |
++------+-------+--------+------+
+
+
+____________________________________________________________________________________
+
+11. Display all the Employee names and the name of their Managers. 
+command :-> 
+
+Output  :->
+____________________________________________________________________________________ 
+ALTER TABLE table_name RENAME COLUMN old_column_name TO new_column_name;

@@ -1,0 +1,137 @@
+                         
+1. Display all the Suppliers with the same Status as the supplier, ‘CLARK’. 
+
+command :-> select sname from s_Supplier
+         -> where status =(select status from s_supplier
+         -> where sname = 'Clark');
+Output :
++-------+
+| sname |
++-------+
+| Smith |
+| Clark |
++-------+
+
+
+____________________________________________________________________________________
+ 
+2. Display all the Employees in the same department as the employee ‘MILLER’. 
+command :->
+
+
+
+____________________________________________________________________________________
+ 
+3. Display all the Parts which have more Weight than all the Red parts. 
+
+command :-> select Pname from P_parts
+    -> where weight > (select max(weight) from p_parts
+    -> where color = 'Red');
+Empty set (0.04 sec)
+
+
+
+____________________________________________________________________________________
+ 
+4. Display all the Projects going on in the same city as the project ‘TAPE’. 
+command :-> select jname from j_projects
+    	 -> where city =(select city from j_projects
+    	 -> where jname= 'OCR');
++---------+
+| jname   |
++---------+
+| OCR     |
+| Console |
++---------+
+
+
+____________________________________________________________________________________
+ 
+5. Display all the Parts with Weight less than all the Green parts. 
+
+command :-> select pname from P_parts
+         -> where weight < (select weight from p_parts
+         -> where color ='Green');
+Output :
++-------+
+| pname |
++-------+
+| Nut   |
+| Screw |
+| Cam   |
++-------+
+___________________________________________________________________________________
+ 
+6. Display the name of the Supplier who has sold the maximum Quantity (in one 
+   sale). 
+command :-> select sname from s_supplier
+	    where sno =(
+	    		 select  distinct `S#` from spj 
+	    			where qty = (select max(qty)from spj ));
+Output :
++-------+
+| sname |
++-------+
+| Clark |
++-------+
+
+command :-> select sname from s_supplier
+         -> where sno=(select  distinct `S#` from spj where qty = (select max(qty)from spj ));
+Output :
++-------+
+| sname |
++-------+
+| Clark |
++-------+
+____________________________________________________________________________________
+ 
+7. Display the name of the Employee with the minimum Salary. 
+
+command :-> select ename from emp
+    -> where sal = (select min(sal) from emp);
+Output : 
+
++-------+
+| ename |
++-------+
+| kiran |
++-------+
+
+____________________________________________________________________________________
+ 
+8. Display the name of the Supplier who has sold the maximum overall Quantity (sum 
+   of Sales). 
+command :->
+select sname, sum(qty) from spj, s where s.`S#` = spj.`S#` group by sname
+having sum(qty) = (select max(sum_qty) from (select sum(qty) as sum_qty from spj group by `S#`) as tempp);
+
+
+
+
+
+____________________________________________________________________________________
+ 
+9. Display the name of the Department with the maximum number of Employees. 
+
+command :->
+
+From 128_Tanmay Trivedi_KH to Everyone 12:00 AM
+-- 9. Display the name of the Department with the maximum number of Employees.
+
+create table dept (deptno int, dname varchar(15));
+insert into dept values
+(1,'TRN'),
+(2,'EXP'),
+(3,'MKTG');
+ select * from dept;
+ 
+select dname, emp.deptno from dept, emp 
+where dept.deptno = emp.deptno group by emp.deptno
+having count(*) = (select max(eemp) from (select count(*) as eemp from emp group by deptno) as tempp);
+
+
+
+____________________________________________________________________________________
+
+
+exc-5-q5 = select distinct sname from s, p, j where s.city = p.city and s.city = j.city;

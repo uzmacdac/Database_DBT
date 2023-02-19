@@ -1,0 +1,458 @@
+select s#, sum(qty) from spj
+group by s#
+haing sum(qty) =
+(select max(sum(qty)) from spj
+group by s#);
+
+
+
+
+----------------------------------------------------
+ER-Diagram Link :
+https://trevor.io/blog/top-7-entity-relationship-diagram-tools/
+
+-------------------------------------------------------------
+
+Assignmant :
+ 5) Create S, P, J, SPJ tables as specified below and insert a few rows in each table:- 
+ 
+ SUPPLIER 
+(S#, Sname, Status, City) 
+- S 
+ PARTS 
+(P#, Pname, Color, Weight, City) 
+- P 
+ PROJECTS 
+(J#, Jname, City) 
+- J 
+ SUPPLIER-PARTS-PROJECT 
+(S#, P#, J#, Qty) 
+ 
+- SPJ 
+Sample data for S# column:- ‘S1’, ‘S2’, ‘S3’, etc. 
+Sample data for P# column:- ‘P1’, ‘P2’, ‘P3’, etc. 
+Sample data for J# column:- ‘J1’, ‘J2’, ‘J3’, etc. 
+Sample data for Status column:- 10, 20, 30, etc. 
+ 
+Write the SELECT queries to do the following:- 
+___________________________________________________________________________________
+ 
+5. Display all the data from the S table. 
+Answere :
+command :->  select * from supplier;
+Output : ->
++------+-----------------+--------+---------+
+| sno  | Sname           | Status | City    |
++------+-----------------+--------+---------+
+|    1 | Iron man        |     10 | America |
+|    4 | Captain America |     20 | Athens  |
+|    3 | Thor            |     30 | Paris   |
+|    2 | Spider man      |     20 | London  |
+|    5 | Black widow     |     40 | Athens  |
++------+-----------------+--------+---------+
+
+
+command :->  select sno,sname from supplier;
+Output : ->
++------+-----------------+
+| sno  | sname           |
++------+-----------------+
+|    1 | Iron man        |
+|    4 | Captain America |
+|    3 | Thor            |
+|    2 | Spider man      |
+|    5 | Black widow     |
++------+-----------------+
+
+___________________________________________________________________________________
+6. Display only the S# and SNAME fields from the S table. 
+___________________________________________________________________________________
+
+7. Display the PNAME and COLOR from the P table for the CITY=”London”. 
+command :-> select p,pname from Parts
+         -> where City = 'London';
+Output : ->
++------+--------+
+| p    | pname  |
++------+--------+
+| p1   | wheels |
++------+--------+
+___________________________________________________________________________________ 
+
+8. Display all the Suppliers from London. 
+command :-> select * from supplier 
+         -> where city  ='london';
+
+Output:
++------+-----------------+--------+--------+
+| sno  |   Sname         | Status | City   |
++------+-----------------+--------+--------+
+|   2  |  Spider man	 |   20	  | London |
++------+-----------------+--------+--------+
+___________________________________________________________________________________
+
+9. Display all the Suppliers from Paris or Athens. 
+command :-> select * from supplier
+   where city = 'Paris' or city = 'Athens';
+Output : ->
++------+-----------------+--------+--------+
+| sno  | Sname           | Status | City   |
++------+-----------------+--------+--------+
+|    4 | Captain America |     20 | Athens |
+|    3 | Thor            |     30 | Paris  |
+|    5 | Black widow     |     40 | Athens |
++------+-----------------+--------+--------+
+In Query is faster than or =>  select * from supplier where city in ("Athens","Paris");
++------+-----------------+--------+--------+
+| sno  | Sname           | Status | City   |
++------+-----------------+--------+--------+
+|    4 | Captain America |     20 | Athens |
+|    3 | Thor            |     30 | Paris  |
+|    5 | Black widow     |     40 | Athens |
++------+-----------------+--------+--------+
+___________________________________________________________________________________
+ 
+*)  Display all the Projects
+command :-> select * from Project;
+Output->
++------+--------------+---------+
+| J    | Jname        | City    |
++------+--------------+---------+
+| j1   | Car          | London  |
+| j2   | Race car     | Parise  |
+| j3   |  Bike        | America |
+| j4   | Electric car | Athens  |
+| j1   |  Robot       | Athens  |
++------+--------------+---------+
+___________________________________________________________________________________
+ 
+10. Display all the Projects in Athens. 
+command :-> select * from Project 
+         ->  where City = 'Athens';
+Output :
++------+--------------+--------+
+| J    | Jname        | City   |
++------+--------------+--------+
+| j4   | Electric car | Athens |
+| j1   |  Robot       | Athens |
++------+--------------+--------+
+
+11. Display all the Partnames with the weight between 12 and 14 (inclusive of both). 
+___________________________________________________________________________________
+ 
+12. Display all the Suppliers with a Status greater than or equal to 20. 
+command :-> select * from Supplier 
+        ->  where status >=20;
+  
+Output :
++--------+----------------+---------+---------+
+| sno    |  sname         | status  |  City   |
++--------+----------------+---------+---------+
+|  4     | Captain America| 20	    | Athens  |
+|  3	 | Thor	          | 30	    | Paris   |
+|  2	 | Spider man	  | 20	    | London  |
+|  5	 | Black widow	  | 40	    | Athens  |
++--------+----------------+---------+---------+
+___________________________________________________________________________________
+
+13. Display all the Suppliers except the Suppliers from London.
+
+command :-> select * from supplier 
+         -> where city != 'london';
+
+Output :
++--------+------------------+-----------+----------+
+| sno    | sname            | status    |  City    |
++--------+------------------+-----------+----------+
+|  1	 | Iron man	    | 10        |  America |
+|  4	 | Captain America  | 20        |  Athens  |
+|  3	 | Thor		    | 30        |  Paris   |
+|  5	 | Black widow	    | 40        |  Athens  |
++--------+------------------+-----------+----------+ 
+___________________________________________________________________________________
+
+14. Display only the Cities from where the Suppliers come from.
+command :->  select city from supplier;
+Output : 
++--------------+
+|      City    |
++--------------+ 
+|   America    |
+|   Athens     | 
+|   Paris      |
+|   London     |
+|   Athens     |
++--------------+
+___________________________________________________________________________________
+15. Assuming that the Part Weight is in GRAMS, display the same in 
+MILLIGRAMS and KILOGRAMS.
+command :-> select weight ,weight*0.0001 "Miligram" ,weight*1000 "KG" from Parts;
+
+Output : 
++--------+-----------------------+-------+
+| weight | Miligram              | KG    |
++--------+-----------------------+-------+
+|     50 |                 0.005 | 50000 |
+|     60 |                 0.006 | 60000 |
+|     40 |                 0.004 | 40000 |
+|     11 |                0.0011 | 11000 |
+|     12 | 0.0012000000000000001 | 12000 |
++--------+-----------------------+-------+
+
+___________________________________________________________________________________
+1. Display the Supplier table in the descending order of CITY. 
+command : -> select * from supplier
+          -> order by city desc;
+Output :
++------+-----------------+--------+-----------+
+| sno  | Sname           | Status | City      |
++------+-----------------+--------+-----------+
+|    3 | Thor            |     30 | Paris     |
+|    7 | hulk            |     70 | Los Vegas |
+|    2 | Spider man      |     20 | London    |
+|    4 | Captain America |     20 | Athens    |
+|    5 | Black widow     |     40 | Athens    |
+|    1 | Iron man        |     10 | America   |
++------+-----------------+--------+-----------+
+___________________________________________________________________________________
+ 
+2. Display the Part Table in the ascending order of CITY and within the city in 
+the ascending order of Part names. 
+___________________________________________________________________________________
+ 
+3. Display all the Suppliers with a status between 10 and 20. 
+command :->   select * from Supplier 
+         ->   where status between 10 and 20;
+
+Output :
++--------+-------------------+-----------+----------+
+| sno    |  sname            | status    |  City    |
++--------+-------------------+-----------+----------+
+| 1	 |  Iron man	     |  10	 |  America |
+| 4	 |  Captain America  |  20	 |  Athens  |
+| 2	 |  Spider man	     |  20	 |  London  |
++--------+-------------------+-----------+----------+
+
+____________________________________________________________________________________
+
+4. Display all the Parts and their Weight, which are not in the range of 10 and 15. 
+
+command :-> select * from Parts
+         -> where weight not between 10 and 15 ;
+Output :
++------+--------+-------+--------+--------+
+| P    | Pname  | Color | Weight | City   |
++------+--------+-------+--------+--------+
+| p1   | wheels | Black |     50 | London |
+| p2   | Engine | Gray  |     60 | Parise |
+| p3   | Door   | White |     40 | Athens |
++------+--------+-------+--------+--------+
+___________________________________________________________________________________
+ 
+5. Display all the Part names starting with the letter ‘S’. 
+command :-> select * from Parts
+         -> where pname like 's%';
+Output :
+Empty set 
+
+command :-> select * from Parts;
++------+--------+-------+--------+---------+
+| P    | Pname  | Color | Weight | City    |
++------+--------+-------+--------+---------+
+| p1   | wheels | Black |     50 | London  |
+| p2   | Engine | Gray  |     60 | Parise  |
+| p3   | Door   | White |     40 | Athens  |
+| p4   | Mirror | White |     11 | America |
+| p5   | Break  | Gray  |     12 | England |
++------+--------+-------+--------+---------+
+___________________________________________________________________________________
+ 
+6. Display all the Suppliers, belonging to cities starting with the letter ‘L’. 
+
+command :-> select * from Parts
+         -> where pname like 'l%';
+Output :
++------+-------+-------+--------+--------+
+| P    | Pname | Color | Weight | City   |
++------+-------+-------+--------+--------+
+| p6   | Light | White |      7 | Russia |
++------+-------+-------+--------+--------+
+ 
+7. Display all the Projects, with the third letter in JNAME as ‘n’.
+
+--------------------------------------------------------------------------------------------------
+
+*. command :-> select upper(substr(sname,1,1)),lower(substr(sname,2)) from supplier;
+Output : 
++--------------------------+------------------------+
+| upper(substr(sname,1,1)) | lower(substr(sname,2)) |
++--------------------------+------------------------+
+| I                        | ron man                |
+| C                        | aptain america         |
+| T                        | hor                    |
+| S                        | pider man              |
+| B                        | lack widow             |
++--------------------------+------------------------+
+___________________________________________________________________________________
+
+1. Display all the Supplier names with the initial letter capital. 
+ 
+command :->  select concat( upper(substr(sname,1,1)),lower(substr(sname,2))) from supplier;
+
+Output :
++----------------------------------------------------------+
+| concat( upper(substr(sname,1,1)),lower(substr(sname,2))) |
++----------------------------------------------------------+
+| Iron man                                                 |
+| Captain america                                          |
+| Thor                                                     |
+| Spider man                                               |
+| Black widow                                              |
++----------------------------------------------------------+
+
+
+command :-> insert into supplier
+         -> values(7,'hulk',70,'Los Vegas');
+
+
+command : mysql> select * from supplier;
++------+-----------------+--------+-----------+
+| sno  | Sname           | Status | City      |
++------+-----------------+--------+-----------+
+|    1 | Iron man        |     10 | America   |
+|    4 | Captain America |     20 | Athens    |
+|    3 | Thor            |     30 | Paris     |
+|    2 | Spider man      |     20 | London    |
+|    5 | Black widow     |     40 | Athens    |
+|    7 | hulk            |     70 | Los Vegas |
++------+-----------------+--------+-----------+
+
+command :-> select concat( upper(substr(sname,1,1)),lower(substr(sname,2))) from supplier;
++----------------------------------------------------------+
+| concat( upper(substr(sname,1,1)),lower(substr(sname,2))) |
++----------------------------------------------------------+
+| Iron man                                                 |
+| Captain america                                          |
+| Thor                                                     |
+| Spider man                                               |
+| Black widow                                              |
+| Hulk                                                     |
++----------------------------------------------------------+
+___________________________________________________________________________________
+
+2. Display all the Supplier names in upper case. 
+command :-> select upper(sname) from supplier;
+Output :
++-----------------+
+| upper(sname)    |
++-----------------+
+| IRON MAN        |
+| CAPTAIN AMERICA |
+| THOR            |
+| SPIDER MAN      |
+| BLACK WIDOW     |
+| HULK            |
++-----------------+
+___________________________________________________________________________________
+ 
+3. Display all the Supplier names in lower case. 
+command :-> select lower(sname) from supplier;
+Output :
++-----------------+
+| lower(sname)    |
++-----------------+
+| iron man        |
+| captain america |
+| thor            |
+| spider man      |
+| black widow     |
+| hulk            |
++-----------------+
+___________________________________________________________________________________
+ 
+4. Display all the Supplier names padded to 25 characters, with spaces on the left.
+
+command :->  select lpad(sname ,25,' ') from supplier;
+Output :
++---------------------------+
+| lpad(sname ,25,' ')       |
++---------------------------+
+|                  Iron man |
+|           Captain America |
+|                      Thor |
+|                Spider man |
+|               Black widow |
+|                      hulk |
++---------------------------+ 
+___________________________________________________________________________________
+ 
+5. Display all the Supplier names (with ‘la’ replaced by ‘ro’). 
+ HINT: REPLACE. 
+
+command :-> select replace(sname ,'la','ro') from supplier;
+Output : here  la         ->  ro
+	      Black widow -> Brock widow 
++---------------------------+
+| replace(sname ,'la','ro') |
++---------------------------+
+| Iron man                  |
+| Captain America           |
+| Thor                      |
+| Spider man                |
+| Brock widow               |
+| hulk                      |
++---------------------------+
+___________________________________________________________________________________
+ 
+6. Implement the above command such that ‘l’ is replaced with ‘r’ and ‘a’ is replaced
+with ‘o’. 
+
+command :-> select replace(replace(sname,'a','o'),'l','r') from supplier;
+Output :
++-----------------------------------------+
+| replace(replace(sname,'a','o'),'l','r') |
++-----------------------------------------+
+| Iron mon                                |
+| Coptoin Americo                         |
+| Thor                                    |
+| Spider mon                              |
+| Brock widow                             |
+| hurk                                    |
++-----------------------------------------+
+___________________________________________________________________________________
+ 
+7. Display the Supplier names and the lengths of the names. 
+command :->  select sname ,length(sname) from supplier;
+Output  :
++-----------------+---------------+
+| sname           | length(sname) |
++-----------------+---------------+
+| Iron man        |             8 |
+| Captain America |            15 |
+| Thor            |             4 |
+| Spider man      |            10 |
+| Black widow     |            11 |
+| hulk            |             4 |
++-----------------+---------------+
+___________________________________________________________________________________
+ 
+8. Use the soundex function to search for a supplier by the name of ‘BLOKE’. 
+
+___________________________________________________________________________________
+ 
+9. Display the Supplier name and the status (as Ten, Twenty, Thirty, etc.). 
+command :
+___________________________________________________________________________________
+ 
+10. Display the current day (e.g. Thursday).
+command :
+-------------------------------------------------------------------------------------
+select rpad(lpad('Amit','22','*'),40,'*') from dual;
+
+select rpad(lpad(empname,truncate(((40-length(empname))/2+length(empname)),0),'*'),40,'*') from emp;
+
+SELECT REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(FNAME, 'U',''), 'O',''), 'I',''), 'E',''),'A','') 
+AS "WITHOUT VOWELS" FROM TEST;
+
+SELECT CONCAT(UPPER(SUBSTR(FNAME,1,1)), LOWER(SUBSTR(FNAME,2)),' ' , UPPER(SUBSTR(LNAME,1,1)), LOWER(SUBSTR(LNAME,2))) 
+AS "FULL NAME" FROM TEST;
