@@ -1,0 +1,43 @@
+
+
+
+
+Gitlab Link Program upload :
+https://gitlab.com/52579_Uzma/dbt_220340320130.git
+
+
+RecordingLink_DBTExam =
+https://drive.google.com/drive/folders/18e14dlOd-IwjYjJ3W2mQ5cSfGuEBlTMN?usp=sharing
+
+
+
+
+
+
+Day - 2  :
+
+*  insert into emp
+   values('5', null , 5000 , null , null);		
+
+* Recommended :-
+   1) Readable 
+   2) Flexible 
+   3) In future , if you alter the table if you add a column , then
+      you don't have to modify the existing INSERT statement 
+
+*  To insert multiple rows in a table simultanously , using a single INsert
+   statement :-
+	1) insert into emp values 
+	   ('1','Amit',5000,'Mumbai','1990-06-03'),
+	   ('2','King',6000,'Delhi','1975-08-14'),
+	   ('3',null,7000,null,null),
+	   ('4',null,5000,null,null);
+
+	2)  insert into emp(empno , sal) values
+	    ('1',2000),
+	    ('2',3000),
+            ('4',5000),
+            ('5',6000);				  	
+
+Tanmay:
+https://www.coursehero.com/sitemap/schools/82158-PDM-College-of-Engineering/courses/6504815-COMPUTER-SCIENCESEM-1/?__chid=4db18f51-07f6-4e5e-a6ef-f2b05f71a741
