@@ -1,0 +1,261 @@
+EXERCISE 1 and 2
+
+Q1. Create the table SEMP with the following structure:- 
+ 
+ EMPNO CHAR(4) 
+ EMPNAME CHAR(20) 
+ BASIC FLOAT 
+ DEPTNO CHAR(2) 
+ DEPTHEAD CHAR(4) 
+
+--->
+create table SEMP
+(
+   EMPNO CHAR(4),
+   EMPNAME CHAR(20),
+   BASIC FLOAT,
+   DEPTNO CHAR(2),
+   DEPTHEAD CHAR(4)
+)
+
+
+Q2. Create the table SDEPT with the following structure:- 
+ 
+ DEPTNO CHAR(2) 
+ DEPTNAME CHAR(15) 
+   
+--->
+CREATE TABLE SDEPT
+(
+ DEPTNO CHAR(2),
+ DEPTNAME CHAR(15) 
+)
+   
+
+Q3. Insert into the SDEPT table the following values:- 
+ 
+10, Development 
+20, Training INSET
+
+--->
+insert into SDEPT( DEPTNO,DEPTNAME)values
+('10', 'Development' ),
+('20', 'Training');
+
+
+
+Q10(assignment3) . Display the current day (e.g. Thursday).
+--->
+select dayname (Curdate());
+
+
+Q4. Insert into the SEMP table the following values:- 
+ 
+0001, SUNIL, 6000, 10 
+0002, HIREN, 8000, 20 
+0003, ALI, 4000, 10, 0001 
+0004, GEORGE, 6000, 0002
+
+---->
+insert into SEMP values
+(0001, 'SUNIL', 6000, '10', null ),
+(0002, 'HIREN', 8000, '20', null), 
+(0003, 'ALI', 4000, '10', 0001),
+(0004, 'GEORGE', 6000,null, 0002);
+
+
+
+
+Create S, P, J, SPJ tables as specified below and insert a few rows in each table:- 
+ 
+ SUPPLIER 
+(S#, Sname, Status, City) 
+- S 
+ PARTS 
+(P#, Pname, Color, Weight, City) 
+- P 
+ PROJECTS 
+(J#, Jname, City) 
+- J 
+ SUPPLIER-PARTS-PROJECT 
+(S#, P#, J#, Qty) 
+ 
+- SPJ 
+Sample data for S# column:- ‘S1’, ‘S2’, ‘S3’, etc. 
+Sample data for P# column:- ‘P1’, ‘P2’, ‘P3’, etc. 
+Sample data for J# column:- ‘J1’, ‘J2’, ‘J3’, etc. 
+Sample data for Status column:- 10, 20, 30, etc. 
+
+
+
+---->
+create table S
+(`S#` char(5), Sname char(20) , Status smallint, City char(15));
+INSERT INTO S VALUES
+("S1","Smith",20,"London"),("S2","Jones",10,"Paris"),("S3","Blake",30,"Paris"),("S4","Clark",20,"London"),("S5","Adams",30,"Athens");
+
+/*Display all the data from the S table*/
+select * from S;
+
+/*Display only the S# and SNAME fields from the S table*/
+select `S#`, Sname  from S;
+
+/*Display all the Suppliers from London*/ 
+select * from S
+where  CITY="London";
+
+/*Display all the Suppliers from Paris or Athens.*/
+select * from S
+where CITY in ( 'Paris' , 'Athens');
+
+/*Display all the Suppliers with a Status greater than or equal to 20*/
+select * from S
+where  Status >= 20;
+
+/*Display all the Suppliers except the Suppliers from London*/
+select * from S
+where  CITY <> "London";
+
+
+/*Display only the Cities from where the Suppliers come from*/
+select city from S;
+
+
+/*Display the Supplier table in the descending order of CITY*/
+select `S#`, Sname, Status , City from S
+order by City desc;
+
+/*Display all the Suppliers with a status between 10 and 20.*/
+select * from S
+where status between 10 and 20;
+
+
+/*Display all the Suppliers, belonging to cities starting with the letter ‘L*/
+select `S#`, Sname, Status , City from S
+where City like 'L%';
+
+
+/*Display all the Supplier names with the initial letter capital.*/
+select concat(upper(substr(Sname,1,1)),lower(substr(Sname,2))) from S;
+
+
+/*Display all the Supplier names in upper case.*/
+select upper(Sname) from S;
+
+
+/*Display all the Supplier names in lower case*/
+select lower(Sname) from S;
+
+
+/*Display all the Supplier names padded to 25 characters, with spaces on the left*/
+select lpad(Sname,25," ") from S;
+
+
+/*Display all the Supplier names (with ‘la’ replaced by ‘ro’). 
+ HINT: REPLACE.*/
+ select replace(Sname,'la','ro') from S;
+
+/* Implement the above command such that ‘l’ is replaced with ‘r’ and ‘a’ is replaced
+with ‘o’. */
+ select replace(replace(Sname,'l','r') , 'a','o') from S;
+
+
+/*Display the Supplier names and the lengths of the names*/
+select Sname, length(Sname) from S;
+
+/*Use the soundex function to search for a supplier by the name of ‘BLOKE’.*/
+select * from S where soundex(Sname) = soundex('Bloke');
+
+
+/*Display the Supplier name and the status (as Ten, Twenty, Thirty, etc.).*/
+select Sname,
+case
+when status = 10 then 'Ten'
+when status = 20 then 'Twenty'
+when status = 30 then 'Thirty'
+end 'status'
+from S;
+
+
+
+
+
+
+
+
+
+
+create table P
+(`P#` char(5), Pname char(20), Color char(7), Weight Smallint, City char(15));
+insert into P values
+("P1","Nut","Red",12,"London"),("P2","Bolt","Green",17,"Paris"),("P3","Screw","Blue",17,"Rome"),("P4","Screw","Red",14,"London"),("P5","Cam","Blue",12,"Paris"),("P6","Cog","Red",19,"London");
+
+/*Display the PNAME and COLOR from the P table for the CITY=”London”*/
+select Pname ,Color from P 
+where CITY="London";
+
+/*Display all the Partnames with the weight between 12 and 14 (inclusive of both)*/
+select * from P
+where Weight between 12 and 14 ;
+
+/*Assuming that the Part Weight is in GRAMS, display the same in MILLIGRAMS and KILOGRAMS*/
+select Weight*1000  "MILLIGRAMS" , Weight/1000  "KILOGRAMS" from P;
+
+/*Display the Part Table in the ascending order of CITY and within the city in 
+the ascending order of Part names.*/
+select `P#`,Pname, Color, Weight,City from P
+order by City;
+
+
+/*Display all the Parts and their Weight, which are not in the range of 10 and 15.*/
+select Pname , Weight from P
+where weight not between 10 and 15;
+
+/*Display all the Part names starting with the letter ‘S’.*/
+select Pname from P
+where Pname like 'S%';
+
+
+
+
+
+
+
+create table J
+(`J#`char(5), Jname char(20), City char(15));
+insert into J values
+("J1","Sorter","Paris"),("J2","Punch","Rome"),("J3","Reader","Athens"),("J4","Console","Athens"),("J5","Collator","London"),("J6","Terminal","Oslo"),("J7","Tape","London");
+
+/*Display all the Projects in Athens*/ 
+select * from J
+where  CITY="Athens";
+
+/*Display all the Projects, with the third letter in JNAME as ‘n’*/
+select `J#`,Jname,City from J
+where Jname like '__n__';
+
+
+
+
+
+
+
+create table SPJ
+( `S#` char(5) , `P#` char(5), `J#` char(5) , Qty int);
+insert into SPJ values
+("S1","P1","J1",200),("S1","P2","J4",700),("S2","P3","J1",400),("S2","P3","J2",200),("S2","P3","J3",200),("S2","P3","J4",500),("S2","P3","J5",600),("S2","P3","J6",400),("S2","P3","J7",800),("S2","P5","J2",100),("S3","P3","J1",200),("S3","P4","J2",500),("S4","P6","J3",300),("S4","P6","J7",300),("S5","P2","J2",200),("S5","P2","J4",100),("S5","P5","J5",500),("S5","P5","J7",100),("S5","P6","J2",200),("S5","P1","J4",100),("S5","P3","J4",200),("S5","P4","J4",800),("S5","P5","J4",400),("S5","P6","J4",500);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

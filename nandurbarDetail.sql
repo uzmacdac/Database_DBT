@@ -1,0 +1,12 @@
+use nandurbar;
+show tables;
+select * from customers;
+rename table customers to cust;
+select * from cust; 
+show tables;
+rename table Orders to order_cust;
+select * from order_cust;
+show tables ;
+rename table salespeople to sales_people;
+select * from sales_people;
+show tables ;
